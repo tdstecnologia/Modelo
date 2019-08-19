@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AspNetCoreMvcCrudPostgreSQL.Models;
 using AspNetCoreMvcCrudPostgreSQL.Repository;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Collections.Generic;
+using System;
 
 namespace AspNetCoreMvcCrudPostgreSQL.Controllers
 {
@@ -18,6 +22,10 @@ namespace AspNetCoreMvcCrudPostgreSQL.Controllers
 
         public async Task<IActionResult> Index()
         {
+            List<Curso> cursos = await _context.CursoDao.ToListAsync();
+
+            cursos.ForEach(c => c.BannerBase64 = "data:image/png;base64," + Convert.ToBase64String(c.Banner, 0, c.Banner.Length));
+
             return View(await _context.CursoDao.ToListAsync());
         }
 
@@ -45,13 +53,20 @@ namespace AspNetCoreMvcCrudPostgreSQL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Descricao,QuantidadeAula,DataInicio,Turno")] Curso curso)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Descricao,QuantidadeAula,DataInicio,Turno,Banner")] Curso curso, IFormFile arquivo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(curso);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (arquivo == null || arquivo.ContentType.ToLower().StartsWith("image/"))
+                {
+                    MemoryStream ms = new MemoryStream();
+                    await arquivo.OpenReadStream().CopyToAsync(ms);
+                    curso.Banner = ms.ToArray();
+
+                    _context.Add(curso);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(curso);
         }

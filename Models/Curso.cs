@@ -26,5 +26,11 @@ namespace AspNetCoreMvcCrudPostgreSQL.Models
 
         [Column("turno")]
         public DomTurno Turno { get; set; }
+
+        [Column("banner")]
+        public byte[] Banner { get; set; }
+
+        [NotMapped]
+        public string BannerBase64 { get; set; }
     }
 }
