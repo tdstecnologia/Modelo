@@ -47,10 +47,10 @@
                     @Html.DisplayFor(modelItem => item.QuantidadeAula)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataInicio)
+                    @item.DataInicio.ToString("MM/dd/yyyy")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Turno)
+                    @item.Turno.Descricao()
                 </td>
                 <td>
                     <img alt="" src="@item.BannerBase64" style="height:100px;width:100px;" />
