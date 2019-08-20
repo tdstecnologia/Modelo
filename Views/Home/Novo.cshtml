@@ -4,16 +4,16 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Curso</h4>
+<div>
+    <h1 class="text-center">Cadastro de Curso</h1>
+</div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+    <div class="col-md-8 offset-2">
+        <form asp-action="Novo" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <img src="#" name="arquivo" id="arquivo" height="300" width="300" class="border border-secondary rounded" />
+                <img src="#" name="arquivo" id="arquivo"  height="300" width="300" class="border border-secondary rounded" />
             </div>
             <div class="form-group">
                 <label asp-for="Banner" class="control-label"></label>
@@ -27,17 +27,17 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
+                <label asp-for="Descricao" class="control-label">Descrição</label>
+                <textarea asp-for="Descricao" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuantidadeAula" class="control-label"></label>
+                <label asp-for="QuantidadeAula" class="control-label">Nº de Aulas</label>
                 <input asp-for="QuantidadeAula" class="form-control" />
                 <span asp-validation-for="QuantidadeAula" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DataInicio" class="control-label"></label>
+                <label asp-for="DataInicio" class="control-label">Data Início</label>
                 <input asp-for="DataInicio" class="form-control" type="date" />
                 <span asp-validation-for="DataInicio" class="text-danger"></span>
             </div>
@@ -47,29 +47,28 @@
                 <span asp-validation-for="Turno" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
+        <div>
+            <a asp-action="Index">Voltar</a>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script>
-    function CarregarImagem(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#arquivo").attr('src', e.target.result).width(300).height(300);
+    <script>
+        function CarregarImagem(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#arquivo").attr('src', e.target.result).width(300).height(300);
+                }
             }
+            reader.readAsDataURL(input.files[0]);
         }
-        reader.readAsDataURL(input.files[0]);
-    }
-</script>
+    </script>
 
 }

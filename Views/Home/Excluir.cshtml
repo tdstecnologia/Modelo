@@ -1,0 +1,49 @@
+﻿@model AspNetCoreMvcCrudPostgreSQL.Models.Curso
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3><small>Excluir informações do curso</small> @Model.Nome?</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nome
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            Descrição
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            Nº de Aulas
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QuantidadeAula)
+        </dd>
+        <dt class="col-sm-2">
+            Início
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataInicio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Turno)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Turno)
+        </dd>
+    </dl>
+
+    <form asp-action="Excluir">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" /> |
+        <a asp-action="Index">Voltar</a>
+    </form>
+</div>

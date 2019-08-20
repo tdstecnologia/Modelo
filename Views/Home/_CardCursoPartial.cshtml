@@ -1,0 +1,27 @@
+﻿@model AspNetCoreMvcCrudPostgreSQL.Models.Curso
+<div class="col-4" style="margin-top:10px;">
+    <div class="card">
+        <a asp-action="Detalhes" asp-route-id="@Model.Id">
+            <img class="card-img-top" alt="Card image cap" src="@Model.BannerBase64" />
+        </a>
+        <div class="card-body" style="min-height: 200px; max-height:200px;overflow-y: hidden;">
+            <h5 class="card-title text-primary">@Model.Nome</h5>
+            <p class="card-text">
+                @Model.Descricao
+            </p>
+        </div>
+        <div class="card-body">
+            <a asp-action="Alterar" class="btn btn-sm btn-outline-info" asp-route-id="@Model.Id">Alterar</a>
+            <a asp-action="Excluir" class="btn btn-sm btn-outline-danger" asp-route-id="@Model.Id">Excluir</a>
+        </div>
+        <div class="card-footer text-muted" style="padding : 0px; height:50px;">
+            <table class="table table-bordered">
+                <tr>
+                    <td>@Model.Turno</td>
+                    <td>@Model.QuantidadeAula <small>Aulas</small></td>
+                    <td>@Model.DataInicio.ToString("dd/MM/yyyy")</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

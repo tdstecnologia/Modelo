@@ -1,8 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<AspNetCoreMvcCrudPostgreSQL.Models.Curso>
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="text-center text-secondary">
+        <h1>Próximos Cursos</h1>
+        <p >Veja aqui nossos proximos cursos agendados, se preferir acesso nosso <b>Calendário completo</b>.</p>
+    </div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("_CardCursoPartial.cshtml", item)
+    }
 </div>
